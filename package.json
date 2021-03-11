@@ -1,0 +1,29 @@
+{
+  "name": "kata-01-el-juego-de-la-vida-final-equipo-01-iteracion-final",
+  "version": "1.0.0",
+  "description": "![BrightCoders Logo](img/logo-bc.png)",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "pretest": "eslint --ignore-path .gitignore",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BC-MAR-21-RN/kata-01-el-juego-de-la-vida-final-equipo-01-iteracion-final.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BC-MAR-21-RN/kata-01-el-juego-de-la-vida-final-equipo-01-iteracion-final/issues"
+  },
+  "homepage": "https://github.com/BC-MAR-21-RN/kata-01-el-juego-de-la-vida-final-equipo-01-iteracion-final#readme",
+  "devDependencies": {
+    "eslint": "^7.21.0",
+    "eslint-config-strongloop": "^2.1.0",
+    "jest": "^26.6.3"
+  },
+  "dependencies": {
+    "prettier": "^2.2.1"
+  }
+}
