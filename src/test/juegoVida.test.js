@@ -8,6 +8,14 @@ const resultInitialLife = [
     [expect.any(Number),expect.any(Number),expect.any(Number),expect.any(Number)],
     [expect.any(Number),expect.any(Number),expect.any(Number),expect.any(Number)]
 ]
+
+const resultFinalFormat = [
+    [expect.any(String),expect.any(String),expect.any(String),expect.any(String)],
+    [expect.any(String),expect.any(String),expect.any(String),expect.any(String)],
+    [expect.any(String),expect.any(String),expect.any(String),expect.any(String)],
+    [expect.any(String),expect.any(String),expect.any(String),expect.any(String)]
+]
+
 const max = 4;
 
 test('Generar grid completo: 4 x 4', ()=>{
@@ -42,4 +50,9 @@ test('Si la celula vive y tiene 2 o 3 celulas vecinas, se mantiene.', () => {
 
 test('Si la celula esta muerta y tiene 3 celulas vecinas vivas, revive.', () => {
     expect(testJuegoVida.applyRules(3,0)).toBe(1)
+})
+
+test('Grid ajustado: los 0 regresan "." y los 1 regresan "*"', () => {
+    expect(testJuegoVida.finalFormat(testJuegoVida.createInitialLife(testJuegoVida.grid)))
+    .toEqual(expect.arrayContaining(resultFinalFormat))
 })
