@@ -1,8 +1,9 @@
 class JuegoVida {
-  constructor(width, heigth) {
+  constructor(width, heigth, cells, generations) {
     this.width = width;
     this.heigth = heigth;
-    this.cells = 6;
+    this.generations = generations;
+    this.cells = cells;
     this.grid = this.createGrid();
   }
 
@@ -26,13 +27,13 @@ class JuegoVida {
     let newGrid = grid;
     let count = 0;
 
-    do{
+    do {
       if (newGrid[this.getRandomCell(this.width - 1)][this.getRandomCell(this.heigth - 1)] != 1) {
         newGrid[this.getRandomCell(this.width - 1)][this.getRandomCell(this.heigth - 1)] = 1
         count++
       }
-    }while(count < this.cells)
-    
+    } while (count < this.cells)
+
     return newGrid;
   }
 
@@ -44,7 +45,7 @@ class JuegoVida {
     if (grid[i] != undefined) {
       if (grid[i][j] == undefined) {
         return 0
-      }else {
+      } else {
         return grid[i][j]
       }
     } else {
@@ -58,43 +59,54 @@ class JuegoVida {
     for (let i = 0; i < grid.length; i++) {
       for (let j = 0; j < grid[i].length; j++) {
         counter = (
-          this.validateCell(i - 1 , j, grid) +
-          this.validateCell(i - 1, j - 1 , grid) +
+          this.validateCell(i - 1, j, grid) +
+          this.validateCell(i - 1, j - 1, grid) +
           this.validateCell(i - 1, j + 1, grid) +
           this.validateCell(i, j - 1, grid) +
           this.validateCell(i, j + 1, grid) +
           this.validateCell(i + 1, j - 1, grid) +
           this.validateCell(i + 1, j, grid) +
           this.validateCell(i + 1, j + 1, grid))
-          
-        //console.log(counter)
+
         newGrid[i][j] = this.applyRules(counter, grid[i][j])
       }
     }
-    console.table(newGrid)
     return newGrid
   }
 
   applyRules(numberNeighbours, cellState) {
     if (
-      cellState === 1 
+      cellState === 1
       && (numberNeighbours < 2 || numberNeighbours > 3)) {
-        return 0
+      return 0
     } else if ((
-      cellState === 1 && (numberNeighbours === 2 || numberNeighbours === 3 ))
+      cellState === 1 && (numberNeighbours === 2 || numberNeighbours === 3))
       || (cellState === 0 && numberNeighbours === 3)) {
-        return 1
-      } else return 0
+      return 1
+    } else return 0
+  }
+
+  finalFormat(grid) {
+    let newGrid = this.createGrid();
+    for (let i = 0; i < grid.length; i++) {
+      for (let j = 0; j < grid[i].length; j++) {
+        newGrid[i][j] = grid[i][j] == 0 ? '.' : '*'
+      }
+    }
+
+    return newGrid;
   }
 
   startGame() {
     let grid = this.createGrid();
-    let newGrid = []
-
+    console.log(`Generación # 0`)
     grid = this.createInitialLife(grid)
-    console.table(grid);
-    newGrid = this.rulesAnalizer(grid)
-    //console.table(newGrid)
+    console.table(this.finalFormat(grid));
+    for (let i = 0; i < this.generations; i++) {
+      console.log(`Nueva generación # ${i+1}`)
+      grid = this.rulesAnalizer(grid)
+      console.table(this.finalFormat(grid))
+    }
   }
 }
 
